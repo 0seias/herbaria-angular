@@ -1,0 +1,212 @@
+<div class="card">
+
+  <div class="card-body">
+
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutAlign="flex-start">
+      <!--
+      <div fxLayout="column" fxFlex="20">
+        <mat-label appearance="outline" for="siglaProduto">Produto</mat-label>
+      </div>
+    -->
+      <div fxLayout="column" fxFlex="60">
+        <mat-form-field appearance="outline">
+          <mat-label for="siglaProduto">Código do Produto</mat-label>
+          <select matNativeControl name="siglaProduto" required [(ngModel)]="configPrioridade.siglaProduto">
+            <option *ngFor="let opcao of AmbienteOptions" [ngValue]="opcao">{{opcao}}</option>
+          </select>
+          
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutAlign="flex-start">
+
+
+      <div fxLayout="column" fxFlex="60">
+        <mat-form-field appearance="outline">
+          <mat-label for="descricaoProduto">Descrição do Produto</mat-label>
+          <input matInput [(ngModel)]="configPrioridade.descricaoProduto" #descricaoProduto="ngModel"
+            name="descricaoProduto">
+
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutAlign="flex-start">
+      <!--
+      <div fxLayout="column" fxFlex="20">
+        <mat-label appearance="outline" for="siglaProduto">Número Índice do Produto</mat-label>
+      </div>
+    -->
+      <div fxLayout="column" fxFlex="60">
+        <mat-form-field appearance="outline">
+          <mat-label for="indiceProduto">Índice do Produto</mat-label>
+          <input matInput [(ngModel)]="configPrioridade.indiceProduto" #indiceProduto="ngModel" name="indiceProduto">
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="5px" fxLayoutAlign="flex-start">
+
+
+
+
+
+
+      
+      <button mat-stroked-button class="botao" (click)="getConfigPrioridade()"  >
+
+        <mat-icon>search</mat-icon> Pesquisar
+      </button>
+
+      <button class="botao" mat-raised-button (click)="clear()">
+        <mat-icon>clear</mat-icon> Limpar
+      </button>
+
+      
+      <button class="botao" mat-raised-button [routerLink]="['/cadastro-planta/0']">
+        <mat-icon>note_add</mat-icon> Adicionar
+      </button>
+
+
+    </div>
+  </div>
+
+
+</div>
+
+
+<br>
+<br>
+
+
+<div class="card" style="margin-top: 2%;" *ngIf="isVisible">
+  <div class="card-header">
+
+
+    <div div fxLayout="row wrap"fxLayoutAlign="flex-end" >
+
+      <div  fxLayoutGap="5px"  >
+<!--
+  
+        <button class="botao" mat-raised-button [routerLink]="['/cadastro-planta/0']" (click)="getConfigPrioridadeById()">
+          <mat-icon>edit</mat-icon> Alterar
+        </button>
+
+
+        <button class="botao" mat-raised-button (click)="deleteConfigPrioridade()">
+          <mat-icon>delete</mat-icon> Excluir
+        </button>
+      -->
+        <button class="botao-fechar"  mat-button (click)="close()">
+          <mat-icon>close</mat-icon>
+        </button>
+
+
+      </div>
+
+
+      <div fxLayoutAlign="flex-end"  >
+        <mat-icon>search</mat-icon>
+        <input class="form-control mr-sm-2" type="text" placeholder="Filtrar..." (keyup)="applyFilter($event)" #input>
+      </div>
+
+
+
+
+    </div>
+
+
+  </div>
+
+
+  <table mat-table [dataSource]="dataSource" >
+    <ng-container matColumnDef="siglaProduto">
+      <th class="text-left" mat-header-cell *matHeaderCellDef>
+        <b style="color: black;">Produto</b>
+      </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.siglaProduto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descricaoProduto">
+      <th class="text-center" mat-header-cell *matHeaderCellDef>
+        <b style="color: black;">Descrição do Produto</b>
+      </th>
+      <td class="text-center" mat-cell *matCellDef="let element"> {{element.descricaoProduto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="indiceProduto">
+      <th class="text-center" mat-header-cell *matHeaderCellDef>
+        <b style="color: black;">Índice do Produto</b>
+      </th>
+      <td class="text-center" mat-cell *matCellDef="let element"> {{element.indiceProduto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes">
+      <th class="text-center" mat-header-cell *matHeaderCellDef>
+        <b style="color: black;">Ações</b>
+      </th>
+      <td class="text-center" mat-cell *matCellDef="let element">
+
+
+
+
+<!--
+        <button mat-icon-button [routerLink]="['/cadastro-planta/', element.id]" title="Editar">
+          <mat-icon style="color: green;">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button title="Excluir">
+          <mat-icon style="color: red;">delete</mat-icon>
+        </button>
+
+        <button mat-icon-button [routerLink]="['/cadastro-planta/', element.id]" title="Visualizar">
+          <mat-icon style="color: rgb(26, 161, 214);">remove_red_eye</mat-icon>
+        </button>
+      -->
+
+
+
+
+
+
+
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="['/cadastro-planta/', element.siglaProduto]">
+          <mat-icon>edit</mat-icon>
+          <span>Alterar</span>
+        </button>
+        <button mat-menu-item (click)="deleteConfigPrioridade(element.siglaProduto)" >
+          <mat-icon>delete</mat-icon>
+          <span>Excluir</span>
+        </button>
+      </mat-menu>
+
+
+
+
+
+
+
+
+
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef=" displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <td class="mat-cell" colspan="4">Nenhum resultado encontrado para "{{input.value}}"</td>
+    <tr class="mat-row" *matNoDataRow>
+    </tr>
+
+
+  </table>
+
+</div>
