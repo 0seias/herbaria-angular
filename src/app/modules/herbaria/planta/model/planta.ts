@@ -1,9 +1,9 @@
 
-export interface ConfigPrioridade {
+export interface Planta {
   
     //id: number;
-    siglaProduto: string;
-    descricaoProduto: string;
-    indiceProduto: string;
+    familia: string;
+    nomeCientifico: string;
+    nomeComum: string;
   }
   

@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { ToastService } from "ng-uikit-pro-standard";
-import { ConfigPrioridade } from "../../model/planta";
+import { Planta } from "../../model/planta";
 import { PlantaService } from "../../service/planta.service";
 
 /*export interface PeriodicElement {
-  indiceProduto: string;
-  siglaProduto: string;
-  descricaoProduto: string;
+  nomeComum: string;
+  familia: string;
+  nomeCientifico: string;
 } */
 
 @Component({
@@ -16,18 +16,18 @@ import { PlantaService } from "../../service/planta.service";
   styleUrls: ["./lista-planta.component.scss"],
 })
 export class ListaPlantaComponent implements OnInit {
-  configPrioridade = {} as ConfigPrioridade;
-  listaConfigPrioridade: ConfigPrioridade[] = [];
-  listaConfigPrioridadeById: ConfigPrioridade[] = [];
+  planta = {} as Planta;
+  listaPlanta: Planta[] = [];
+  listaPlantaById: Planta[] = [];
   isVisible = false;
   dataSource!: MatTableDataSource<any>;
 
   AmbienteOptions: Array<any> = [];
 
   displayedColumns: string[] = [
-    "siglaProduto",
-    "descricaoProduto",
-    "indiceProduto",
+    "familia",
+    "nomeCientifico",
+    "nomeComum",
     "acoes",
 
   ];
@@ -49,18 +49,18 @@ export class ListaPlantaComponent implements OnInit {
   }
 
   
-  getConfigPrioridadeById() {
+  getPlantaById() {
     const options = { opacity: 1 };
     this.isVisible = true;
     this.plantaService
-    .getConfigPrioridadeByFilter(this.configPrioridade)
+    .getPlantaByFilter(this.planta)
     .subscribe((res) => {
-      this.listaConfigPrioridadeById = res;
-      if (this.listaConfigPrioridadeById.length !== 0) {
-            this.dataSource = new MatTableDataSource(this.listaConfigPrioridadeById);
+      this.listaPlantaById = res;
+      if (this.listaPlantaById.length !== 0) {
+            this.dataSource = new MatTableDataSource(this.listaPlantaById);
             this.isVisible = true;
             console.log('2');
-            console.log(this.listaConfigPrioridadeById);
+            console.log(this.listaPlantaById);
 
       } else {
         this.toast.info("", "Nenhum registro encontrado", options);
@@ -68,34 +68,34 @@ export class ListaPlantaComponent implements OnInit {
       }
     });
     console.log('1');
-    console.log(this.listaConfigPrioridadeById);
+    console.log(this.listaPlantaById);
 
     
   }
 
-  getConfigPrioridade() {
+  getPlanta() {
     const options = { opacity: 1 };
     this.isVisible = true;
     this.plantaService
-      .getConfigPrioridade()
+      .getPlanta()
       .subscribe((res) => {
-        this.listaConfigPrioridade = res.dados;        
-        if (this.listaConfigPrioridade.length !== 0) {
+        this.listaPlanta = res.dados;        
+        if (this.listaPlanta.length !== 0) {
           if (
-            this.configPrioridade.siglaProduto == undefined &&
-            this.configPrioridade.descricaoProduto == undefined &&
-            this.configPrioridade.indiceProduto == undefined ||
-            this.configPrioridade.descricaoProduto =='' &&
-            this.configPrioridade.indiceProduto ==  ''  &&
-            this.configPrioridade.siglaProduto == '' ) 
+            this.planta.familia == undefined &&
+            this.planta.nomeCientifico == undefined &&
+            this.planta.nomeComum == undefined ||
+            this.planta.nomeCientifico =='' &&
+            this.planta.nomeComum ==  ''  &&
+            this.planta.familia == '' ) 
             {
-            this.dataSource = new MatTableDataSource(this.listaConfigPrioridade);
+            this.dataSource = new MatTableDataSource(this.listaPlanta);
             this.isVisible = true;
             console.log('usou o get normal');
           } else {
             console.log('usou o getbyid');
             
-            this.getConfigPrioridadeById()
+            this.getPlantaById()
           }
 
         } else {
@@ -109,12 +109,12 @@ export class ListaPlantaComponent implements OnInit {
 
 
   filtr(){
-  let v = this.listaConfigPrioridade.filter(function (currentElement) {
+  let v = this.listaPlanta.filter(function (currentElement) {
 
 
-    return currentElement.siglaProduto === "" &&
-           currentElement.descricaoProduto === "" &&
-           currentElement.indiceProduto === "";
+    return currentElement.familia === "" &&
+           currentElement.nomeCientifico === "" &&
+           currentElement.nomeComum === "";
   });
 
   }
@@ -123,27 +123,27 @@ export class ListaPlantaComponent implements OnInit {
   getSigla() {
     const options = { opacity: 1 };
     this.plantaService
-      .getConfigPrioridade()
+      .getPlanta()
       .subscribe((res) => {
-        this.listaConfigPrioridade = res.dados;
-        this.AmbienteOptions = this.listaConfigPrioridade.map(v => v.siglaProduto)
+        this.listaPlanta = res.dados;
+        this.AmbienteOptions = this.listaPlanta.map(v => v.familia)
 
       });
   }
 
-  deleteConfigPrioridade(sigla: string) {
+  deletePlanta(sigla: string) {
     const options = { opacity: 1 };
     this.plantaService
-      .deleteConfigPrioridade(sigla);
+      .deletePlanta(sigla);
 
   }
 
 
 
-  updateConfigPrioridade() {
+  updatePlanta() {
     const options = { opacity: 1 };
     this.plantaService
-      .updateConfigPrioridade(this.configPrioridade);
+      .updatePlanta(this.planta);
   }
 
 
@@ -151,9 +151,9 @@ export class ListaPlantaComponent implements OnInit {
 
   clear() {
     const options = { opacity: 1 };
-    this.configPrioridade.descricaoProduto = '';
-    this.configPrioridade.siglaProduto = '';
-    this.configPrioridade.indiceProduto = '';
+    this.planta.nomeCientifico = '';
+    this.planta.familia = '';
+    this.planta.nomeComum = '';
 
   }
 
@@ -165,14 +165,14 @@ export class ListaPlantaComponent implements OnInit {
   }
 
 
-  getConfigPrioridadeById2() {
+  getPlantaById2() {
     const options = { opacity: 1 };
     this.plantaService
-      .getConfigPrioridadeByFilter(this.configPrioridade)
-      .subscribe((listaConfigPrioridade: ConfigPrioridade[]) => {
-        this.listaConfigPrioridade = listaConfigPrioridade;
-        if (this.listaConfigPrioridade.length !== 0) {
-          this.dataSource = new MatTableDataSource(this.listaConfigPrioridade);
+      .getPlantaByFilter(this.planta)
+      .subscribe((listaPlanta: Planta[]) => {
+        this.listaPlanta = listaPlanta;
+        if (this.listaPlanta.length !== 0) {
+          this.dataSource = new MatTableDataSource(this.listaPlanta);
           this.isVisible = true;
         } else {
           this.toast.info("", "Nenhum registro encontrado", options);

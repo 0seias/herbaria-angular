@@ -1,16 +1,40 @@
 <mat-nav-list>
-    <div class="profile-card">
+ <!--   <div class="profile-card">
       <div class="header">
-        <h2>{{nameProject}}</h2>
-      </div>
+     <h2>{{nameProject}}</h2>
       <mat-divider></mat-divider>
     </div>
-  
-    <h2 matSubheader>Páginas</h2>
+      
+      </div>
+
+     <h2 matSubheader>Páginas</h2>
+      -->
+   
   
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/herbaria">
-      <mat-icon>subject</mat-icon>
-      Portal
+      <mat-icon>home</mat-icon>
+      Início
     </a>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/lista-planta">
+      <mat-icon>filter_vintage</mat-icon>
+      Plantas
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/lista-sindrome">
+      <mat-icon>zoom_out_map</mat-icon>
+      Síndromes
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/lista-vetor">
+      <mat-icon>swap_horiz</mat-icon>
+      Vetores
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/usuario">
+      <mat-icon>account_circle</mat-icon>
+      Usuário
+    </a>
+    
   </mat-nav-list>
   

@@ -3,15 +3,11 @@
   <div class="card-body">
 
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutAlign="flex-start">
-      <!--
-      <div fxLayout="column" fxFlex="20">
-        <mat-label appearance="outline" for="siglaProduto">Produto</mat-label>
-      </div>
-    -->
+ 
       <div fxLayout="column" fxFlex="60">
         <mat-form-field appearance="outline">
-          <mat-label for="siglaProduto">Código do Produto</mat-label>
-          <select matNativeControl name="siglaProduto" required [(ngModel)]="configPrioridade.siglaProduto">
+          <mat-label for="familia">Família</mat-label>
+          <select matNativeControl name="familia" required [(ngModel)]="planta.familia">
             <option *ngFor="let opcao of AmbienteOptions" [ngValue]="opcao">{{opcao}}</option>
           </select>
           
@@ -24,9 +20,9 @@
 
       <div fxLayout="column" fxFlex="60">
         <mat-form-field appearance="outline">
-          <mat-label for="descricaoProduto">Descrição do Produto</mat-label>
-          <input matInput [(ngModel)]="configPrioridade.descricaoProduto" #descricaoProduto="ngModel"
-            name="descricaoProduto">
+          <mat-label for="nomeCientifico">Nome Científico</mat-label>
+          <input matInput [(ngModel)]="planta.nomeCientifico" #nomeCientifico="ngModel"
+            name="nomeCientifico">
 
         </mat-form-field>
       </div>
@@ -34,15 +30,11 @@
 
 
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutAlign="flex-start">
-      <!--
-      <div fxLayout="column" fxFlex="20">
-        <mat-label appearance="outline" for="siglaProduto">Número Índice do Produto</mat-label>
-      </div>
-    -->
+
       <div fxLayout="column" fxFlex="60">
         <mat-form-field appearance="outline">
-          <mat-label for="indiceProduto">Índice do Produto</mat-label>
-          <input matInput [(ngModel)]="configPrioridade.indiceProduto" #indiceProduto="ngModel" name="indiceProduto">
+          <mat-label for="nomeComum">Nome Comum</mat-label>
+          <input matInput [(ngModel)]="planta.nomeComum" #nomeComum="ngModel" name="nomeComum">
         </mat-form-field>
       </div>
     </div>
@@ -56,7 +48,7 @@
 
 
       
-      <button mat-stroked-button class="botao" (click)="getConfigPrioridade()"  >
+      <button mat-stroked-button class="botao" (click)="getPlanta()"  >
 
         <mat-icon>search</mat-icon> Pesquisar
       </button>
@@ -91,12 +83,12 @@
       <div  fxLayoutGap="5px"  >
 <!--
   
-        <button class="botao" mat-raised-button [routerLink]="['/cadastro-planta/0']" (click)="getConfigPrioridadeById()">
+        <button class="botao" mat-raised-button [routerLink]="['/cadastro-planta/0']" (click)="getPlantaById()">
           <mat-icon>edit</mat-icon> Alterar
         </button>
 
 
-        <button class="botao" mat-raised-button (click)="deleteConfigPrioridade()">
+        <button class="botao" mat-raised-button (click)="deletePlanta()">
           <mat-icon>delete</mat-icon> Excluir
         </button>
       -->
@@ -123,25 +115,25 @@
 
 
   <table mat-table [dataSource]="dataSource" >
-    <ng-container matColumnDef="siglaProduto">
+    <ng-container matColumnDef="familia">
       <th class="text-left" mat-header-cell *matHeaderCellDef>
-        <b style="color: black;">Produto</b>
+        <b style="color: black;">Família</b>
       </th>
-      <td class="text-left" mat-cell *matCellDef="let element"> {{element.siglaProduto}} </td>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.familia}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="descricaoProduto">
+    <ng-container matColumnDef="nomeCientifico">
       <th class="text-center" mat-header-cell *matHeaderCellDef>
-        <b style="color: black;">Descrição do Produto</b>
+        <b style="color: black;">Nome Científico</b>
       </th>
-      <td class="text-center" mat-cell *matCellDef="let element"> {{element.descricaoProduto}} </td>
+      <td class="text-center" mat-cell *matCellDef="let element"> {{element.nomeCientifico}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="indiceProduto">
+    <ng-container matColumnDef="nomeComum">
       <th class="text-center" mat-header-cell *matHeaderCellDef>
-        <b style="color: black;">Índice do Produto</b>
+        <b style="color: black;">Nome Comum</b>
       </th>
-      <td class="text-center" mat-cell *matCellDef="let element"> {{element.indiceProduto}} </td>
+      <td class="text-center" mat-cell *matCellDef="let element"> {{element.nomeComum}} </td>
     </ng-container>
 
     <ng-container matColumnDef="acoes">
@@ -177,11 +169,11 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/cadastro-planta/', element.siglaProduto]">
+        <button mat-menu-item [routerLink]="['/cadastro-planta/', element.familia]">
           <mat-icon>edit</mat-icon>
           <span>Alterar</span>
         </button>
-        <button mat-menu-item (click)="deleteConfigPrioridade(element.siglaProduto)" >
+        <button mat-menu-item (click)="deletePlanta(element.familia)" >
           <mat-icon>delete</mat-icon>
           <span>Excluir</span>
         </button>

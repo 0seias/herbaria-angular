@@ -3,7 +3,7 @@ import { FormControl, Validators } from "@angular/forms";
 import { ToastService } from "ng-uikit-pro-standard";
 import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ConfigPrioridade } from "../../model/planta";
+import { Planta } from "../../model/planta";
 import { MatTableDataSource } from "@angular/material/table";
 import { PlantaService } from "../../service/planta.service";
 
@@ -14,17 +14,17 @@ import { PlantaService } from "../../service/planta.service";
 })
 export class CadastroPlantaComponent implements OnInit {
   titulo: string | undefined;
-  configPrioridade = {} as ConfigPrioridade;
-  idConfigPrioridade!: string;
+  planta = {} as Planta;
+  idPlanta!: string;
   isVisible = false;
-  listaConfigPrioridade: ConfigPrioridade[] = [];
+  listaPlanta: Planta[] = [];
   email = new FormControl("", [Validators.required, Validators.email]);
   dataSource!: MatTableDataSource<any>;
 
   displayedColumns: string[] = [
-    "siglaProduto",
-    "descricaoProduto",
-    "indiceProduto",
+    "familia",
+    "nomeCientifico",
+    "nomeComum",
     "acoes",
 
   ];
@@ -43,15 +43,15 @@ export class CadastroPlantaComponent implements OnInit {
 
   init() {
     this.route.params.subscribe((params) => {
-      this.idConfigPrioridade = params["id"];
+      this.idPlanta = params["id"];
     });
 
-    if (this.idConfigPrioridade != '0' ) {
+    if (this.idPlanta != '0' ) {
         this.plantaService
-        .getConfigPrioridadeById(this.idConfigPrioridade)
-        .subscribe((configPrioridade: any) => {
-          this.configPrioridade = configPrioridade.dados;
-          console.log(configPrioridade.dados);
+        .getPlantaById(this.idPlanta)
+        .subscribe((planta: any) => {
+          this.planta = planta.dados;
+          console.log(planta.dados);
           
         });
       this.titulo = "Atualizar";
@@ -61,17 +61,17 @@ export class CadastroPlantaComponent implements OnInit {
     }
   }
 
-  saveConfigPrioridade(form: NgForm) {
+  savePlanta(form: NgForm) {
     this.isVisible = true;
     const options = { opacity: 1 };
-    if (this.idConfigPrioridade != '0') {
+    if (this.idPlanta != '0') {
       
-      this.plantaService.updateConfigPrioridade(this.configPrioridade).subscribe(() => {
+      this.plantaService.updatePlanta(this.planta).subscribe(() => {
         this.cleanForm(form);
         this.toast.success("", "Registro Atualizado com Sucesso", options);
       });
     } else {
-      this.plantaService.saveConfigPrioridade(this.configPrioridade).subscribe(() => {
+      this.plantaService.savePlanta(this.planta).subscribe(() => {
         this.cleanForm(form);
         this.toast.success("", "Registro Cadastrado com Sucesso", options)
 
@@ -84,21 +84,21 @@ export class CadastroPlantaComponent implements OnInit {
 
   }
   
-  deleteConfigPrioridade() {
+  deletePlanta() {
     const options = { opacity: 1 };
     this.plantaService
-      .getConfigPrioridadeByFilter(this.configPrioridade);
+      .getPlantaByFilter(this.planta);
   }
 
-  getConfigPrioridade() {
+  getPlanta() {
     const options = { opacity: 1 };
     this.isVisible = true;
     this.plantaService
-      .getConfigPrioridadeByFilter(this.configPrioridade)
-      .subscribe((listaConfigPrioridade: ConfigPrioridade[]) => {
-        this.listaConfigPrioridade = listaConfigPrioridade;
-        if (this.listaConfigPrioridade.length !== 0) {
-          this.dataSource = new MatTableDataSource(this.listaConfigPrioridade);
+      .getPlantaByFilter(this.planta)
+      .subscribe((listaPlanta: Planta[]) => {
+        this.listaPlanta = listaPlanta;
+        if (this.listaPlanta.length !== 0) {
+          this.dataSource = new MatTableDataSource(this.listaPlanta);
           this.isVisible = true;
         } else {
           this.toast.info("", "Nenhum registro encontrado", options);
@@ -106,14 +106,14 @@ export class CadastroPlantaComponent implements OnInit {
         }
       });
   }
-  getConfigPrioridadeById() {
+  getPlantaById() {
     const options = { opacity: 1 };
     this.plantaService
-      .getConfigPrioridadeByFilter(this.configPrioridade)
-      .subscribe((listaConfigPrioridade: ConfigPrioridade[]) => {
-        this.listaConfigPrioridade = listaConfigPrioridade;
-        if (this.listaConfigPrioridade.length !== 0) {
-          this.dataSource = new MatTableDataSource(this.listaConfigPrioridade);
+      .getPlantaByFilter(this.planta)
+      .subscribe((listaPlanta: Planta[]) => {
+        this.listaPlanta = listaPlanta;
+        if (this.listaPlanta.length !== 0) {
+          this.dataSource = new MatTableDataSource(this.listaPlanta);
           this.isVisible = true;
         } else {
           this.toast.info("", "Nenhum registro encontrado", options);
@@ -138,12 +138,12 @@ export class CadastroPlantaComponent implements OnInit {
 
   cleanForm(form: NgForm) {
     form.resetForm();
-    this.configPrioridade = {} as ConfigPrioridade;
+    this.planta = {} as Planta;
   }
 
   clear2(form: NgForm) {
     form.resetForm();
-    this.configPrioridade = {} as ConfigPrioridade;
+    this.planta = {} as Planta;
   }
 
 

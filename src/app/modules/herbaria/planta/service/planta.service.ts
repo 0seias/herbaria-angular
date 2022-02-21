@@ -8,14 +8,14 @@ import {
 } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { retry, catchError } from "rxjs/operators";
-import { ConfigPrioridade } from "../model/planta";
+import { Planta } from "../model/planta";
 
 
 @Injectable({
   providedIn: "root",
 })
 export class PlantaService {
-  url = environment.baseURL + 'ProdutoBacenJud';
+  url = environment.baseURL + '';
 
 
 
@@ -25,7 +25,7 @@ export class PlantaService {
     headers: new HttpHeaders({ "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" })
   };
 
-  getConfigPrioridade(): Observable<any> {
+  getPlanta(): Observable<any> {
     
     return this.httpClient
       .get<any>(this.url, this.httpOptions)
@@ -34,19 +34,19 @@ export class PlantaService {
 
 
   
-  getConfigPrioridadeByFilter(dados: any): Observable<ConfigPrioridade[]> {
+  getPlantaByFilter(dados: any): Observable<Planta[]> {
     let params = new HttpParams();
 
-    if(dados.siglaProduto !== undefined && dados.siglaProduto !== '') {
-    params = params.append("siglaProduto", dados.siglaProduto);
+    if(dados.familia !== undefined && dados.familia !== '') {
+    params = params.append("familia", dados.familia);
     }
-    if(dados.descricaoProduto !== undefined && dados.descricaoProduto !== '') {
-    params = params.append("descricaoProduto", dados.descricaoProduto);
+    if(dados.nomeCientifico !== undefined && dados.nomeCientifico !== '') {
+    params = params.append("nomeCientifico", dados.nomeCientifico);
     }
-    if(dados.indiceProduto !== undefined && dados.indiceProduto !== '') {  
-    params = params.append("indiceProduto", dados.indiceProduto);
+    if(dados.nomeComum !== undefined && dados.nomeComum !== '') {  
+    params = params.append("nomeComum", dados.nomeComum);
     }
-    return this.httpClient.get<ConfigPrioridade[]>(this.url, {
+    return this.httpClient.get<Planta[]>(this.url, {
       params: params,
     });
 
@@ -54,22 +54,22 @@ export class PlantaService {
   }
 
 
-  getConfigPrioridadeById(id: string): Observable<any> {
+  getPlantaById(id: string): Observable<any> {
     
     return this.httpClient
-      .get<ConfigPrioridade>(this.url + '/' +id, this.httpOptions)
+      .get<Planta>(this.url + '/' +id, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
 
   }
 
-  getConfigPrioridadeById2(id: number): Observable<ConfigPrioridade> {
+  getPlantaById2(id: number): Observable<Planta> {
     return this.httpClient
-      .get<ConfigPrioridade>(this.url + id, this.httpOptions)
+      .get<Planta>(this.url + id, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
 
-  deleteConfigPrioridade(id: string) : Observable<any>{
+  deletePlanta(id: string) : Observable<any>{
     console.log(id);
     return this.httpClient
       .delete<any>(this.url+ '/' + id)
@@ -78,21 +78,21 @@ export class PlantaService {
 
 
   
-  updateConfigPrioridade(configPrioridade: ConfigPrioridade): Observable<ConfigPrioridade> {
+  updatePlanta(planta: Planta): Observable<Planta> {
     return this.httpClient
-      .put<ConfigPrioridade>(
-        this.url + '/' + configPrioridade.siglaProduto,
-        JSON.stringify(configPrioridade),
+      .put<Planta>(
+        this.url + '/' + planta.familia,
+        JSON.stringify(planta),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  saveConfigPrioridade(configPrioridade: ConfigPrioridade): Observable<ConfigPrioridade> {
+  savePlanta(planta: Planta): Observable<Planta> {
     return this.httpClient
-      .post<ConfigPrioridade>(
+      .post<Planta>(
         this.url,
-        JSON.stringify(configPrioridade),
+        JSON.stringify(planta),
         this.httpOptions
       )
       .pipe(retry(2), catchError(this.handleError));

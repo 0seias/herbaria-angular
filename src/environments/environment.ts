@@ -7,7 +7,7 @@ export const environment = {
   defaultLanguage: 'pt-BR',
   defaultCurrencyCode: 'BRL',
   version: '1.0.0',
-  nameProject: 'CCS-JUD',
+  nameProject: 'Herbaria',
   baseURL: 'http://localhost:8282/v1/api/'
 };
 
