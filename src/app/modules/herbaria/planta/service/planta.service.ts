@@ -46,6 +46,9 @@ export class PlantaService {
     if(dados.nomeComum !== undefined && dados.nomeComum !== '') {  
     params = params.append("nomeComum", dados.nomeComum);
     }
+    if(dados.nomeComum !== undefined && dados.polinizacao !== '') {  
+      params = params.append("polinizacao", dados.polinizacao);
+      } 
     return this.httpClient.get<Planta[]>(this.url, {
       params: params,
     });

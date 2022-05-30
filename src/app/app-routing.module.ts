@@ -1,3 +1,4 @@
+import { LoginComponent } from './shared/page/login/login.component';
 import { HerbariaComponent } from './modules/herbaria/herbaria.component';
 import { CadastroPlantaComponent } from './modules/herbaria/planta/page/cadastro-planta/cadastro-planta.component';
 import { ListaPlantaComponent } from './modules/herbaria/planta/page/lista-planta/lista-planta.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: "lista-planta", component: ListaPlantaComponent },
       { path: "cadastro-planta/:id", component: CadastroPlantaComponent },
       { path: "herbaria", component: HerbariaComponent },
+      { path: "", component: LoginComponent},
     ],
   },
 ];

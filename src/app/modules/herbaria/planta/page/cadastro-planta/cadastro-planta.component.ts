@@ -26,6 +26,7 @@ export class CadastroPlantaComponent implements OnInit {
     "nomeCientifico",
     "nomeComum",
     "acoes",
+    "polinizacao",
 
   ];
 

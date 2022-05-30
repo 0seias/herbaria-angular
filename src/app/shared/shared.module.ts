@@ -1,5 +1,6 @@
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
+import { LoginComponent } from './page/login/login.component';
 
 @NgModule({
     imports: [
@@ -7,6 +8,9 @@ import { NgModule } from "@angular/core";
     ],
     exports: [
         HttpClientModule
+    ],
+    declarations: [
+      LoginComponent
     ]
 })
 export class SharedModule {

@@ -1,3 +1,4 @@
+import { LoginComponent } from './../shared/page/login/login.component';
 import { HerbariaComponent } from './../modules/herbaria/herbaria.component';
 import { CadastroPlantaComponent } from './../modules/herbaria/planta/page/cadastro-planta/cadastro-planta.component';
 import { ListaPlantaComponent } from './../modules/herbaria/planta/page/lista-planta/lista-planta.component';
@@ -38,6 +39,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     HerbariaComponent,
     CadastroPlantaComponent,
     ListaPlantaComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,

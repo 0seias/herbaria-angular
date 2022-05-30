@@ -11,7 +11,7 @@ import { ListaPlantaComponent } from './modules/herbaria/planta/page/lista-plant
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

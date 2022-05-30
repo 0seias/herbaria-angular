@@ -3,7 +3,7 @@
       <button mat-icon-button (click)="toggleSideBar()">
         <mat-icon class="icon">menu</mat-icon>
       </button>
-      <img src="assets/logo-herbaria.png" class='textologo' style="height: 75%;" alt="banpara">
+      <img src="assets/logo-herbaria.png" class='textologo' style="height: 75%;" alt="herbaria">
       <div class="textologo"> Herbaria </div>
   
       <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
@@ -14,8 +14,16 @@
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item>
-                <mat-icon>exit_to_app</mat-icon>
-                Sair
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="/usuario">
+                  <mat-icon>account_circle</mat-icon>
+                  Usuário
+                </a>              
+              </button>
+              <button mat-menu-item>
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="">
+                  <mat-icon>exit_to_app</mat-icon>
+                  Sair
+                </a>                
               </button>
             </mat-menu>
           </li>
