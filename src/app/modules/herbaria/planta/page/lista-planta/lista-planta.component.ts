@@ -28,6 +28,7 @@ export class ListaPlantaComponent implements OnInit {
     "familia",
     "nomeCientifico",
     "nomeComum",
+    "polinizacao",  
     "acoes",
 
   ];
@@ -84,9 +85,11 @@ export class ListaPlantaComponent implements OnInit {
           if (
             this.planta.familia == undefined &&
             this.planta.nomeCientifico == undefined &&
-            this.planta.nomeComum == undefined ||
+            this.planta.nomeComum == undefined &&
+            this.planta.polinizacao == undefined ||
             this.planta.nomeCientifico =='' &&
-            this.planta.nomeComum ==  ''  &&
+            this.planta.nomeComum ==''  &&
+            this.planta.polinizacao ==  ''  &&
             this.planta.familia == '' ) 
             {
             this.dataSource = new MatTableDataSource(this.listaPlanta);
@@ -114,7 +117,8 @@ export class ListaPlantaComponent implements OnInit {
 
     return currentElement.familia === "" &&
            currentElement.nomeCientifico === "" &&
-           currentElement.nomeComum === "";
+           currentElement.nomeComum === "" &&
+           currentElement.polinizacao === "" ;
   });
 
   }
@@ -154,6 +158,7 @@ export class ListaPlantaComponent implements OnInit {
     this.planta.nomeCientifico = '';
     this.planta.familia = '';
     this.planta.nomeComum = '';
+    this.planta.polinizacao = '';
 
   }
 
