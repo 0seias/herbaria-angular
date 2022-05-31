@@ -8,7 +8,7 @@ export const environment = {
   defaultCurrencyCode: 'BRL',
   version: '1.0.0',
   nameProject: 'Herbaria',
-  baseURL: 'http://localhost:8282/v1/api/'
+  baseURL: 'http://localhost:9090'
 };
 
 

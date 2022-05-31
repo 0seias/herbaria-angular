@@ -1,16 +1,15 @@
-import { HttpClientModule } from "@angular/common/http";
-import { NgModule } from "@angular/core";
-import { LoginComponent } from './page/login/login.component';
+import {HttpClientModule} from "@angular/common/http";
+import {NgModule} from "@angular/core";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
     imports: [
-        HttpClientModule
+        HttpClientModule,
+        MatSnackBarModule
     ],
     exports: [
-        HttpClientModule
-    ],
-    declarations: [
-      LoginComponent
+        HttpClientModule,
+        MatSnackBarModule
     ]
 })
 export class SharedModule {
