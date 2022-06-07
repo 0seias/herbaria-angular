@@ -1,3 +1,4 @@
+import { CreateUserComponent } from './../shared/page/create-user/create-user.component';
 import { LoginComponent } from './../shared/page/login/login.component';
 import { HerbariaComponent } from './../modules/herbaria/herbaria.component';
 import { CadastroPlantaComponent } from './../modules/herbaria/planta/page/cadastro-planta/cadastro-planta.component';
@@ -40,6 +41,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     CadastroPlantaComponent,
     ListaPlantaComponent,
     LoginComponent,
+    CreateUserComponent,
   ],
   imports: [
     CommonModule,
