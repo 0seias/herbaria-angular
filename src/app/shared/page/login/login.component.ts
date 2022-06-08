@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
       creds.email = this.form?.get("email")?.value;
       creds.password = this.form?.get("password")?.value;
       this.service.login(creds).subscribe(res=>{
-        this.localStorageService.set('token', res);
         this.router.navigate(['herbaria']);
       },error=>{
         this.snackBar.open(error.error.text, 'Ok');

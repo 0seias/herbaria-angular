@@ -4,12 +4,6 @@ import { ToastService } from "ng-uikit-pro-standard";
 import { Planta } from "../../model/planta";
 import { PlantaService } from "../../service/planta.service";
 
-/*export interface PeriodicElement {
-  nomeComum: string;
-  familia: string;
-  nomeCientifico: string;
-} */
-
 @Component({
   selector: "app-lista-planta",
   templateUrl: "./lista-planta.component.html",
@@ -54,7 +48,7 @@ export class ListaPlantaComponent implements OnInit {
     const options = { opacity: 1 };
     this.isVisible = true;
     this.plantaService
-    .getPlantaByFilter(this.planta)
+    .getPlanta()
     .subscribe((res) => {
       this.listaPlantaById = res;
       if (this.listaPlantaById.length !== 0) {
@@ -80,33 +74,8 @@ export class ListaPlantaComponent implements OnInit {
     this.plantaService
       .getPlanta()
       .subscribe((res) => {
-        this.listaPlanta = res.dados;        
-        if (this.listaPlanta.length !== 0) {
-          if (
-            this.planta.familia == undefined &&
-            this.planta.nomeCientifico == undefined &&
-            this.planta.nomeComum == undefined &&
-  //          this.planta.polinizacao == undefined ||
-            this.planta.nomeCientifico =='' &&
-            this.planta.nomeComum ==''  &&
-  //          this.planta.polinizacao ==  ''  &&
-            this.planta.familia == '' ) 
-            {
+        this.listaPlanta = res;
             this.dataSource = new MatTableDataSource(this.listaPlanta);
-            this.isVisible = true;
-            console.log('usou o get normal');
-          } else {
-            console.log('usou o getbyid');
-            
-            this.getPlantaById()
-          }
-
-        } else {
-          this.toast.info("", "Nenhum registro encontrado", options);
-          this.isVisible = false;
-        }
-
-
       });
   }
 
@@ -128,25 +97,19 @@ export class ListaPlantaComponent implements OnInit {
     this.plantaService
       .getPlanta()
       .subscribe((res) => {
-        this.listaPlanta = res.dados;
+        this.listaPlanta = res;
         this.AmbienteOptions = this.listaPlanta.map(v => v.familia)
 
       });
   }
 
   deletePlanta(sigla: string) {
-    const options = { opacity: 1 };
-    this.plantaService
-      .deletePlanta(sigla);
 
   }
 
 
 
   updatePlanta() {
-    const options = { opacity: 1 };
-    this.plantaService
-      .updatePlanta(this.planta);
   }
 
 
@@ -170,19 +133,6 @@ export class ListaPlantaComponent implements OnInit {
 
 
   getPlantaById2() {
-    const options = { opacity: 1 };
-    this.plantaService
-      .getPlantaByFilter(this.planta)
-      .subscribe((listaPlanta: Planta[]) => {
-        this.listaPlanta = listaPlanta;
-        if (this.listaPlanta.length !== 0) {
-          this.dataSource = new MatTableDataSource(this.listaPlanta);
-          this.isVisible = true;
-        } else {
-          this.toast.info("", "Nenhum registro encontrado", options);
-          this.isVisible = false;
-        }
-      });
   }
 
 

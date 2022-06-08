@@ -5,6 +5,7 @@ import { map } from "rxjs";
 import { Credentials } from "../models/credentials";
 import { Message } from "../models/message";
 import { User } from "../models/user";
+import { Token } from '../models/token';
 
 const API_LOGIN = 'http://localhost:8080/login';
 const API_AUTH = 'http://localhost:8080/v1/auth';
@@ -17,7 +18,9 @@ export class AuthService {
     constructor(private http: HttpClient, private local: LocalStorageService) { }
 
     login(creds: Credentials){
-        return this.http.post(API_LOGIN, creds).pipe(map(res => this.local.setToken(res)));
+        return this.http.post<Token>(API_LOGIN, creds).pipe(map((res: Token) => {
+            this.local.setToken(res);
+        }));
     }
 
     signin(user: User){

@@ -1,5 +1,5 @@
 export interface Token {
     type: string;
-    chave: string;
+    token: string;
     duration: string;
 }

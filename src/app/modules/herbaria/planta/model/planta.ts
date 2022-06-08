@@ -3,6 +3,5 @@ export interface Planta {
     familia: string;
     nomeCientifico: string;
     nomeComum: string;
-   // polinizacao: string;
   }
   

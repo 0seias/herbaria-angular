@@ -9,6 +9,7 @@ import {
 import { Observable, throwError } from "rxjs";
 import { retry, catchError } from "rxjs/operators";
 import { Planta } from "../model/planta";
+import { LocalStorageService } from 'src/app/shared/services/local-storage-service';
 
 
 @Injectable({
@@ -17,91 +18,19 @@ import { Planta } from "../model/planta";
 export class PlantaService {
   url = environment.baseURL + '/v1/plants';
 
+  constructor(private httpClient: HttpClient, private localStorageService: LocalStorageService) { }
 
-
-  constructor(private httpClient: HttpClient) { }
-
-  httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("token") })
-  };
-
-  getPlanta(): Observable<any> {
-    
-    return this.httpClient
-      .get<any>(this.url, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
-  }
-
-
-  
-  getPlantaByFilter(dados: any): Observable<Planta[]> {
-    let params = new HttpParams();
-
-    if(dados.familia !== undefined && dados.familia !== '') {
-    params = params.append("familia", dados.familia);
-    }
-    if(dados.nomeCientifico !== undefined && dados.nomeCientifico !== '') {
-    params = params.append("nomeCientifico", dados.nomeCientifico);
-    }
-    if(dados.nomeComum !== undefined && dados.nomeComum !== '') {  
-    params = params.append("nomeComum", dados.nomeComum);
-    }
-  //  if(dados.nomeComum !== undefined && dados.polinizacao !== '') {  
-  //    params = params.append("polinizacao", dados.polinizacao);
-  //    } 
-    return this.httpClient.get<Planta[]>(this.url, {
-      params: params,
-    });
-
-
-  }
-
-
-  getPlantaById(id: string): Observable<any> {
-    
-    return this.httpClient
-      .get<Planta>(this.url + '/' +id, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
-
-  }
-
-  getPlantaById2(id: number): Observable<Planta> {
-    return this.httpClient
-      .get<Planta>(this.url + id, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
-  }
-
-
-  deletePlanta(id: string) : Observable<any>{
-    console.log(id);
-    return this.httpClient
-      .delete<any>(this.url+ '/' + id)
-      ;
-  }
-
-
-  
-  updatePlanta(planta: Planta): Observable<Planta> {
-    return this.httpClient
-      .put<Planta>(
-        this.url + '/' + planta.familia,
-        JSON.stringify(planta),
-        this.httpOptions
-      )
-      .pipe(retry(1), catchError(this.handleError));
+  getPlanta(): Observable<Planta[]> {
+    return this.httpClient.get<Planta[]>(this.url, {'headers': this.getHeaders()});
   }
 
   savePlanta(planta: Planta): Observable<Planta> {
     return this.httpClient
-      .post<Planta>(
-        this.url,
-        JSON.stringify(planta),
-        this.httpOptions
-      )
-      .pipe(retry(2), catchError(this.handleError));
+      .post<Planta>(this.url, planta, {headers: this.getHeaders()});
   }
-
-
+  getPlantaById(id: number){
+    return this.httpClient.get<Planta>(`${this.url}/${id}`);
+  }
   handleError(error: HttpErrorResponse) {
     let errorMessage = "";
     if (error.error instanceof ErrorEvent) {
@@ -114,5 +43,17 @@ export class PlantaService {
     }
     console.log(errorMessage);
     return throwError(errorMessage);
+  }
+
+  getToken(){
+    const token = this.localStorageService.getToken();
+    return `Bearer ${token}`;
+  }
+
+  getHeaders(){
+    const headers = new HttpHeaders()
+    .append('Content-Type','application/json')
+    .append('Authorization', this.getToken());
+    return headers;
   }
 }
