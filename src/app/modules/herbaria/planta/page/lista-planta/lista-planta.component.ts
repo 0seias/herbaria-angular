@@ -28,7 +28,7 @@ export class ListaPlantaComponent implements OnInit {
     "familia",
     "nomeCientifico",
     "nomeComum",
-    "polinizacao",  
+ //   "polinizacao",  
     "acoes",
 
   ];
@@ -86,10 +86,10 @@ export class ListaPlantaComponent implements OnInit {
             this.planta.familia == undefined &&
             this.planta.nomeCientifico == undefined &&
             this.planta.nomeComum == undefined &&
-            this.planta.polinizacao == undefined ||
+  //          this.planta.polinizacao == undefined ||
             this.planta.nomeCientifico =='' &&
             this.planta.nomeComum ==''  &&
-            this.planta.polinizacao ==  ''  &&
+  //          this.planta.polinizacao ==  ''  &&
             this.planta.familia == '' ) 
             {
             this.dataSource = new MatTableDataSource(this.listaPlanta);
@@ -114,11 +114,10 @@ export class ListaPlantaComponent implements OnInit {
   filtr(){
   let v = this.listaPlanta.filter(function (currentElement) {
 
-
     return currentElement.familia === "" &&
            currentElement.nomeCientifico === "" &&
-           currentElement.nomeComum === "" &&
-           currentElement.polinizacao === "" ;
+           currentElement.nomeComum === "" ;
+       // d   && currentElement.polinizacao === "" ;
   });
 
   }
@@ -158,7 +157,7 @@ export class ListaPlantaComponent implements OnInit {
     this.planta.nomeCientifico = '';
     this.planta.familia = '';
     this.planta.nomeComum = '';
-    this.planta.polinizacao = '';
+ //   this.planta.polinizacao = '';
 
   }
 

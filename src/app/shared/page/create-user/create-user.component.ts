@@ -13,15 +13,19 @@ import { LocalStorageService } from '../../services/local-storage-service';
 })
 export class CreateUserComponent implements OnInit {
 
-   form: FormGroup;
+  form: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
+    private service: AuthService,
+    private localStorageService: LocalStorageService,
+    private snackBar: MatSnackBar,
     private router: Router) { 
     this.form = this.formBuilder.group({
       email: [''],
       password: [''],
     });
   }
+
 
   ngOnInit(): void {}
 
@@ -31,8 +35,11 @@ export class CreateUserComponent implements OnInit {
       creds.email = this.form?.get("email")?.value;
       creds.password = this.form?.get("password")?.value;
       this.router.navigate(['herbaria']);
+
     }
   }
 
 }
+
+
 

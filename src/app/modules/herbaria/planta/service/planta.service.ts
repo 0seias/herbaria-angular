@@ -15,14 +15,14 @@ import { Planta } from "../model/planta";
   providedIn: "root",
 })
 export class PlantaService {
-  url = environment.baseURL + '';
+  url = environment.baseURL + '/v1/plants';
 
 
 
   constructor(private httpClient: HttpClient) { }
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" })
+    headers: new HttpHeaders({ "Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("token") })
   };
 
   getPlanta(): Observable<any> {
@@ -46,9 +46,9 @@ export class PlantaService {
     if(dados.nomeComum !== undefined && dados.nomeComum !== '') {  
     params = params.append("nomeComum", dados.nomeComum);
     }
-    if(dados.nomeComum !== undefined && dados.polinizacao !== '') {  
-      params = params.append("polinizacao", dados.polinizacao);
-      } 
+  //  if(dados.nomeComum !== undefined && dados.polinizacao !== '') {  
+  //    params = params.append("polinizacao", dados.polinizacao);
+  //    } 
     return this.httpClient.get<Planta[]>(this.url, {
       params: params,
     });
