@@ -124,11 +124,11 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/cadastro-planta/', element.familia]">
+        <button mat-menu-item [routerLink]="['/cadastro-planta/', element.id]">
           <mat-icon>edit</mat-icon>
           <span>Alterar</span>
         </button>
-        <button mat-menu-item (click)="deletePlanta(element.familia)" >
+        <button mat-menu-item (click)="deletePlanta(element.id)" >
           <mat-icon>delete</mat-icon>
           <span>Excluir</span>
         </button>

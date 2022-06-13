@@ -103,13 +103,20 @@ export class ListaPlantaComponent implements OnInit {
       });
   }
 
-  deletePlanta(sigla: string) {
 
+  deletePlanta(id: number){
+    this.plantaService.deletePlanta(id)
+    .subscribe(res=>{
+      this.getPlanta();
+    })
   }
 
 
-
-  updatePlanta() {
+  updatePlanta(id: number) {
+    this.plantaService.deletePlanta(id)
+    .subscribe(res=>{
+      this.getPlanta();
+    })
   }
 
 

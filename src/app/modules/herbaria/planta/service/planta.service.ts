@@ -29,8 +29,22 @@ export class PlantaService {
       .post<Planta>(this.url, planta, {headers: this.getHeaders()});
   }
   getPlantaById(id: number){
-    return this.httpClient.get<Planta>(`${this.url}/${id}`);
+    return this.httpClient.get<Planta>(`/${this.url}/${id}`);
   }
+
+  updatePlanta(planta: Planta): Observable<any> {
+    return this.httpClient
+      .put<Planta>(this.url+'/'+ planta.id, {headers: this.getHeaders()});
+      console.log(planta.id);
+
+  }
+
+  deletePlanta(id: number): Observable<any> {
+    return this.httpClient
+      .delete(this.url+'/'+ id, {headers: this.getHeaders()});
+  }
+
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = "";
     if (error.error instanceof ErrorEvent) {

@@ -62,17 +62,39 @@ export class CadastroPlantaComponent implements OnInit {
     }
   }
 
+
+
   savePlanta(form: NgForm) {
+
     this.isVisible = true;
-  
+    const options = { opacity: 1 };
+
+    if (this.idPlanta != '0') {
+      
+      this.plantaService.updatePlanta(this.planta).subscribe(() => {
+        this.cleanForm(form);
+        this.toast.success("", "Registro Atualizado com Sucesso", options);
+      });
+    } else {
       this.plantaService.savePlanta(this.planta).subscribe(() => {
         this.cleanForm(form);
-        this.toast.success("", "Registro Cadastrado com Sucesso");});
-    this.router.navigate(['/lista-planta']);
+        this.toast.success("", "Registro Cadastrado com Sucesso", options);});
 
+    }
+    this.router.navigate(['/lista-planta']);
     this.isVisible = true;
 
   }
+
+
+
+
+
+
+
+
+
+
   
   deletePlanta() {
   }
