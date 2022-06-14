@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { ToastService } from "ng-uikit-pro-standard";
 import { NgForm } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from "@angular/router";
 import { Planta } from "../../model/planta";
 import { MatTableDataSource } from "@angular/material/table";
 import { PlantaService } from "../../service/planta.service";
@@ -20,7 +20,6 @@ export class CadastroPlantaComponent implements OnInit {
   listaPlanta: Planta[] = [];
   email = new FormControl("", [Validators.required, Validators.email]);
   dataSource!: MatTableDataSource<any>;
-
   displayedColumns: string[] = [
     "familia",
     "nomeCientifico",
@@ -70,7 +69,7 @@ export class CadastroPlantaComponent implements OnInit {
     const options = { opacity: 1 };
 
     if (this.idPlanta != '0') {
-      
+      this.planta.id = +this.idPlanta;
       this.plantaService.updatePlanta(this.planta).subscribe(() => {
         this.cleanForm(form);
         this.toast.success("", "Registro Atualizado com Sucesso", options);

@@ -21,22 +21,21 @@ export class PlantaService {
   constructor(private httpClient: HttpClient, private localStorageService: LocalStorageService) { }
 
   getPlanta(): Observable<Planta[]> {
-    return this.httpClient.get<Planta[]>(this.url, {'headers': this.getHeaders()});
+    return this.httpClient.get<Planta[]>(this.url, {headers: this.getHeaders()});
   }
 
   savePlanta(planta: Planta): Observable<Planta> {
     return this.httpClient
       .post<Planta>(this.url, planta, {headers: this.getHeaders()});
   }
+
   getPlantaById(id: number){
-    return this.httpClient.get<Planta>(`/${this.url}/${id}`);
+    return this.httpClient.get<Planta>(`${this.url}/${id}`, {headers: this.getHeaders()});
   }
 
   updatePlanta(planta: Planta): Observable<any> {
     return this.httpClient
-      .put<Planta>(this.url+'/'+ planta.id, {headers: this.getHeaders()});
-      console.log(planta.id);
-
+      .put<Planta>(this.url, planta, {headers: this.getHeaders()});
   }
 
   deletePlanta(id: number): Observable<any> {
