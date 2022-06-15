@@ -24,21 +24,40 @@ export class PlantaService {
     return this.httpClient.get<Planta[]>(this.url, {headers: this.getHeaders()});
   }
 
-  savePlanta(planta: Planta): Observable<Planta> {
-    return this.httpClient
-      .post<Planta>(this.url, planta, {headers: this.getHeaders()});
+  getPlantaPorFiltro(planta: Planta): Observable<Planta[]> {
+
+    let params = new HttpParams();
+
+    if(planta.familia !== undefined && planta.familia !== '') {
+    params = params.append("familia", planta.familia);
+    }
+    if(planta.nomeCientifico !== undefined && planta.nomeCientifico !== '') {
+    params = params.append("nomeCientifico", planta.nomeCientifico);
+    }
+    if(planta.nomeComum !== undefined && planta.nomeComum !== '') {  
+    params = params.append("nomeComum", planta.nomeComum);
+    }
+
+    return this.httpClient.get<Planta[]>(this.url, { params: params, headers: this.getHeaders()});
   }
 
-  getPlantaById(id: number){
-    return this.httpClient.get<Planta>(`${this.url}/${id}`, {headers: this.getHeaders()});
+  savePlanta(planta: Planta): Observable<Planta> {
+    return this.httpClient
+      .post<Planta>(this.url, JSON.stringify(planta)
+      , {headers: this.getHeaders()});
+  }
+
+  getPlantaById(id: string){
+    return this.httpClient.get<Planta>(this.url+'/'+id, {headers: this.getHeaders()});
   }
 
   updatePlanta(planta: Planta): Observable<any> {
     return this.httpClient
-      .put<Planta>(this.url, planta, {headers: this.getHeaders()});
+      .put<Planta>(this.url, JSON.stringify(planta)
+      , {headers: this.getHeaders()});
   }
 
-  deletePlanta(id: number): Observable<any> {
+  deletePlanta(id: string): Observable<any> {
     return this.httpClient
       .delete(this.url+'/'+ id, {headers: this.getHeaders()});
   }

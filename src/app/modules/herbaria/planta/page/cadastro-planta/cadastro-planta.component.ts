@@ -46,9 +46,10 @@ export class CadastroPlantaComponent implements OnInit {
       this.idPlanta = params["id"];
     });
 
+
     if (this.idPlanta != '0' ) {
         this.plantaService
-        .getPlantaById(+this.idPlanta)
+        .getPlantaById(this.idPlanta)
         .subscribe((planta: any) => {
           this.planta = planta.dados;
           console.log(planta.dados);
@@ -64,17 +65,17 @@ export class CadastroPlantaComponent implements OnInit {
 
 
   savePlanta(form: NgForm) {
-
     this.isVisible = true;
     const options = { opacity: 1 };
 
     if (this.idPlanta != '0') {
-      this.planta.id = +this.idPlanta;
+      this.planta.id = this.idPlanta;
       this.plantaService.updatePlanta(this.planta).subscribe(() => {
         this.cleanForm(form);
         this.toast.success("", "Registro Atualizado com Sucesso", options);
       });
     } else {
+      this.planta.id = this.idPlanta;
       this.plantaService.savePlanta(this.planta).subscribe(() => {
         this.cleanForm(form);
         this.toast.success("", "Registro Cadastrado com Sucesso", options);});
@@ -85,23 +86,43 @@ export class CadastroPlantaComponent implements OnInit {
 
   }
 
-
-
-
-
-
-
-
-
-
   
   deletePlanta() {
   }
 
   getPlanta() {
+
+    const options = { opacity: 1 };
+    this.isVisible = true;
+    this.plantaService
+      .getPlantaPorFiltro(this.planta)
+      .subscribe((listaPlanta: Planta[]) => {
+        this.listaPlanta = listaPlanta;
+        if (this.listaPlanta.length !== 0) {
+          this.dataSource = new MatTableDataSource(this.listaPlanta);
+          this.isVisible = true;
+        } else {
+          this.toast.info("", "Nenhum registro encontrado", options);
+          this.isVisible = false;
+        }
+      });
     
   }
   getPlantaById() {
+
+    const options = { opacity: 1 };
+    this.plantaService
+      .getPlantaPorFiltro(this.planta)
+      .subscribe((listaPlanta: Planta[]) => {
+        this.listaPlanta = listaPlanta;
+        if (this.listaPlanta.length !== 0) {
+          this.dataSource = new MatTableDataSource(this.listaPlanta);
+          this.isVisible = true;
+        } else {
+          this.toast.info("", "Nenhum registro encontrado", options);
+          this.isVisible = false;
+        }
+      });
     
   }
 

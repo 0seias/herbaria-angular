@@ -1,3 +1,4 @@
+import { computeMsgId } from "@angular/compiler";
 import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { ToastService } from "ng-uikit-pro-standard";
@@ -39,7 +40,7 @@ export class ListaPlantaComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getSigla();
+    this.getFamilia();
 
   }
 
@@ -48,13 +49,12 @@ export class ListaPlantaComponent implements OnInit {
     const options = { opacity: 1 };
     this.isVisible = true;
     this.plantaService
-    .getPlanta()
+    .getPlantaPorFiltro(this.planta)
     .subscribe((res) => {
       this.listaPlantaById = res;
       if (this.listaPlantaById.length !== 0) {
             this.dataSource = new MatTableDataSource(this.listaPlantaById);
             this.isVisible = true;
-            console.log('2');
             console.log(this.listaPlantaById);
 
       } else {
@@ -62,20 +62,50 @@ export class ListaPlantaComponent implements OnInit {
         this.isVisible = false;
       }
     });
-    console.log('1');
     console.log(this.listaPlantaById);
 
-    
-  }
+
+   }
 
   getPlanta() {
+
     const options = { opacity: 1 };
     this.isVisible = true;
     this.plantaService
-      .getPlanta()
-      .subscribe((res) => {
-        this.listaPlanta = res;
+
+ //sigla = familia
+ //descr = com
+ //indi cien
+
+    .getPlanta()
+    .subscribe((res) => {
+      this.listaPlanta = res;
+          if (this.listaPlanta.length !== 0) {
+          if (
+            this.planta.familia == undefined &&
+            this.planta.nomeComum == undefined &&
+            this.planta.nomeCientifico == undefined ||
+            this.planta.nomeComum =='' &&
+            this.planta.nomeCientifico ==  ''  &&
+            this.planta.familia == '' ) 
+            {
             this.dataSource = new MatTableDataSource(this.listaPlanta);
+            this.isVisible = true;
+            console.log('usou o get normal');
+          } else {
+            console.log('usou o getbyid');
+        
+            this.getPlantaById()
+            this.dataSource = new MatTableDataSource(this.listaPlanta);
+            this.isVisible = true;
+
+          }
+
+        } else {
+          this.toast.info("", "Nenhum registro encontrado", options);
+          this.isVisible = false;
+        }
+
       });
   }
 
@@ -92,7 +122,7 @@ export class ListaPlantaComponent implements OnInit {
   }
 
 
-  getSigla() {
+  getFamilia() {
     const options = { opacity: 1 };
     this.plantaService
       .getPlanta()
@@ -104,7 +134,7 @@ export class ListaPlantaComponent implements OnInit {
   }
 
 
-  deletePlanta(id: number){
+  deletePlanta(id: string){
     this.plantaService.deletePlanta(id)
     .subscribe(res=>{
       this.getPlanta();
@@ -112,7 +142,7 @@ export class ListaPlantaComponent implements OnInit {
   }
 
 
-  updatePlanta(id: number) {
+  updatePlanta(id: string) {
     this.plantaService.deletePlanta(id)
     .subscribe(res=>{
       this.getPlanta();
@@ -139,8 +169,7 @@ export class ListaPlantaComponent implements OnInit {
   }
 
 
-  getPlantaById2() {
-  }
+
 
 
 
