@@ -1,5 +1,5 @@
 export interface Planta {
-    id: string;
+    id: number;
     familia: string;
     nomeCientifico: string;
     nomeComum: string;

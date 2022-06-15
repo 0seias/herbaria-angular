@@ -1,9 +1,9 @@
+import { Planta } from './../../model/planta';
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { ToastService } from "ng-uikit-pro-standard";
 import { NgForm } from "@angular/forms";
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from "@angular/router";
-import { Planta } from "../../model/planta";
 import { MatTableDataSource } from "@angular/material/table";
 import { PlantaService } from "../../service/planta.service";
 
@@ -15,7 +15,7 @@ import { PlantaService } from "../../service/planta.service";
 export class CadastroPlantaComponent implements OnInit {
   titulo: string | undefined;
   planta = {} as Planta;
-  idPlanta!: string;
+  idPlanta!: number;
   isVisible = false;
   listaPlanta: Planta[] = [];
   email = new FormControl("", [Validators.required, Validators.email]);
@@ -47,12 +47,12 @@ export class CadastroPlantaComponent implements OnInit {
     });
 
 
-    if (this.idPlanta != '0' ) {
+    if (this.idPlanta != 0 ) {
         this.plantaService
         .getPlantaById(this.idPlanta)
-        .subscribe((planta: any) => {
-          this.planta = planta.dados;
-          console.log(planta.dados);
+        .subscribe((planta: Planta) => {
+          this.planta = planta;
+          console.log(this.planta);
           
         });
       this.titulo = "Atualizar";
@@ -65,17 +65,16 @@ export class CadastroPlantaComponent implements OnInit {
 
 
   savePlanta(form: NgForm) {
-    this.isVisible = true;
+ //   this.isVisible = true;
     const options = { opacity: 1 };
 
-    if (this.idPlanta != '0') {
+    if (this.idPlanta != 0) {
       this.planta.id = this.idPlanta;
       this.plantaService.updatePlanta(this.planta).subscribe(() => {
         this.cleanForm(form);
         this.toast.success("", "Registro Atualizado com Sucesso", options);
       });
     } else {
-      this.planta.id = this.idPlanta;
       this.plantaService.savePlanta(this.planta).subscribe(() => {
         this.cleanForm(form);
         this.toast.success("", "Registro Cadastrado com Sucesso", options);});

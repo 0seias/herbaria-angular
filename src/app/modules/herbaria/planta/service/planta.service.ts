@@ -47,7 +47,7 @@ export class PlantaService {
       , {headers: this.getHeaders()});
   }
 
-  getPlantaById(id: string){
+  getPlantaById(id: number){
     return this.httpClient.get<Planta>(this.url+'/'+id, {headers: this.getHeaders()});
   }
 
@@ -57,7 +57,7 @@ export class PlantaService {
       , {headers: this.getHeaders()});
   }
 
-  deletePlanta(id: string): Observable<any> {
+  deletePlanta(id: number): Observable<any> {
     return this.httpClient
       .delete(this.url+'/'+ id, {headers: this.getHeaders()});
   }

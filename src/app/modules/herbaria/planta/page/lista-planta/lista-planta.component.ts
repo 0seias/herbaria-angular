@@ -134,7 +134,7 @@ export class ListaPlantaComponent implements OnInit {
   }
 
 
-  deletePlanta(id: string){
+  deletePlanta(id: number){
     this.plantaService.deletePlanta(id)
     .subscribe(res=>{
       this.getPlanta();
@@ -142,12 +142,12 @@ export class ListaPlantaComponent implements OnInit {
   }
 
 
-  updatePlanta(id: string) {
+  updatePlanta(id: number) {
     this.plantaService.deletePlanta(id)
     .subscribe(res=>{
       this.getPlanta();
     })
-  }
+  } 
 
 
 
